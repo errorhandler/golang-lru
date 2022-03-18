@@ -2,32 +2,32 @@
 package simplelru
 
 // LRUCache is the interface for simple LRU cache.
-type LRUCache interface {
+type LRUCache[Key, Value any] interface {
 	// Adds a value to the cache, returns true if an eviction occurred and
 	// updates the "recently used"-ness of the key.
-	Add(key, value interface{}) bool
+	Add(key Key, value Value) bool
 
 	// Returns key's value from the cache and
 	// updates the "recently used"-ness of the key. #value, isFound
-	Get(key interface{}) (value interface{}, ok bool)
+	Get(key Key) (value Value, ok bool)
 
 	// Checks if a key exists in cache without updating the recent-ness.
-	Contains(key interface{}) (ok bool)
+	Contains(key Key) (ok bool)
 
 	// Returns key's value without updating the "recently used"-ness of the key.
-	Peek(key interface{}) (value interface{}, ok bool)
+	Peek(key Key) (value Value, ok bool)
 
 	// Removes a key from the cache.
-	Remove(key interface{}) bool
+	Remove(key Key) bool
 
 	// Removes the oldest entry from cache.
-	RemoveOldest() (interface{}, interface{}, bool)
+	RemoveOldest() (Key, Value, bool)
 
 	// Returns the oldest entry from the cache. #key, value, isFound
-	GetOldest() (interface{}, interface{}, bool)
+	GetOldest() (Key, Value, bool)
 
 	// Returns a slice of the keys in the cache, from oldest to newest.
-	Keys() []interface{}
+	Keys() []Key
 
 	// Returns the number of items in the cache.
 	Len() int
